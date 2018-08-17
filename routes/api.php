@@ -10,13 +10,18 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
-
+define('ROUTE_PATH',__DIR__ .'/');
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
-
-
 $api = app('Dingo\Api\Routing\Router');
+//路由文件引入
+$route_array = ['member.php'];
+foreach($route_array as $v){
+    require_once ROUTE_PATH.$v;
+}
+
+
 
 $api->version('v1',function($api){
     //注册登录
