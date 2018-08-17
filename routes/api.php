@@ -20,9 +20,7 @@ $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1',function($api){
     //注册登录
-    $api->group(['namespace' => 'App\Controllers\V1\Auth', 'prefix' => 'auth','middleware'=>'jwt.auth'], function ($api) {
-        $api->get('test','AuthController@test'); //临时测试
-
+    $api->group(['namespace' => 'App\Controllers\V1\Auth', 'prefix' => 'auth'], function ($api) {
         $api->post('register','AuthController@register'); //注册
         $api->post('login','AuthController@login'); //登录
         $api->get('logout','AuthController@logout'); //退出登录
@@ -30,7 +28,7 @@ $api->version('v1',function($api){
 
 
     //测试
-    $api->group(['namespace' => 'App\Controllers\V1'], function ($api) {
+    $api->group(['namespace' => 'App\Controllers\V1','middleware'=>'jwt.auth'], function ($api) {
         $api->get('test','TestController@test'); //临时测试
     });
 

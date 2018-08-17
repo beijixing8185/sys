@@ -32,6 +32,8 @@ $app->withEloquent();
 $app->configure('database');
 $app->configure('cors');
 $app->configure('api');
+$app->configure('auth');
+$app->configure('jwt');
 
 /*
 |--------------------------------------------------------------------------
