@@ -23,9 +23,15 @@ $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
 
-// $app->withFacades();
+$app->withFacades();
 
-// $app->withEloquent();
+$app->withEloquent();
+
+
+//配置文件
+$app->configure('database');
+$app->configure('cors');
+$app->configure('api');
 
 /*
 |--------------------------------------------------------------------------
@@ -59,13 +65,15 @@ $app->singleton(
 |
 */
 
-// $app->middleware([
-//    App\Http\Middleware\ExampleMiddleware::class
-// ]);
+/*$app->middleware([
+   App\Http\Middleware\ExampleMiddleware::class
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+]);*/
+
+ $app->routeMiddleware([
+     'auth' => App\Http\Middleware\Authenticate::class,
+     'cors' => \Barryvdh\Cors\HandleCors::class,  //添加跨域
+ ]);
 
 /*
 |--------------------------------------------------------------------------
@@ -78,10 +86,22 @@ $app->singleton(
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
+ $app->register(App\Providers\AppServiceProvider::class);
+ $app->register(App\Providers\AuthServiceProvider::class);
+ $app->register(App\Providers\EventServiceProvider::class);
 
+ $app->register(Barryvdh\Cors\ServiceProvider::class); //注册跨域
+ $app->register(Illuminate\Redis\RedisServiceProvider::class); //注册redis
+ $app->register(Dingo\Api\Provider\LumenServiceProvider::class); //注册dingo
+ $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class); //注册jwt
+ $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);//基础命令
+
+
+
+class_alias('Dingo\Api\Facade\API', 'Api');
+class_alias('Dingo\Api\Facade\Route', 'ApiRoute');
+class_alias('Tymon\JWTAuth\Facades\JWTAuth', 'JWTAuth');
+class_alias('Tymon\JWTAuth\Facades\JWTFactory', 'JWTFactory');
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
@@ -93,10 +113,8 @@ $app->singleton(
 |
 */
 
-$app->router->group([
-    'namespace' => 'App\Http\Controllers',
-], function ($router) {
-    require __DIR__.'/../routes/web.php';
+$app->router->group(['namespace' => 'App\Controllers'], function ($router) {
+    require __DIR__.'/../routes/api.php';
 });
 
 return $app;
