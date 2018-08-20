@@ -15,6 +15,7 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 $api = app('Dingo\Api\Routing\Router');
+
 //路由文件引入
 $route_array = ['member.php'];
 foreach($route_array as $v){
@@ -33,7 +34,7 @@ $api->version('v1',function($api){
 
 
     //测试
-    $api->group(['namespace' => 'App\Controllers\V1','middleware'=>'jwt.auth'], function ($api) {
+    $api->group(['namespace' => 'App\Controllers\V1','middleware'=>'check_sign'], function ($api) { //,'middleware'=>'jwt.auth'
         $api->get('test','TestController@test'); //临时测试
     });
 

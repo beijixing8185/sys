@@ -34,6 +34,7 @@ $app->configure('cors');
 $app->configure('api');
 $app->configure('auth');
 $app->configure('jwt');
+$app->configure('constants');
 
 /*
 |--------------------------------------------------------------------------
@@ -75,6 +76,7 @@ $app->singleton(
  $app->routeMiddleware([
      'auth' => App\Http\Middleware\Authenticate::class,
      'cors' => \Barryvdh\Cors\HandleCors::class,  //添加跨域
+     'check_sign' => App\Http\Middleware\checkSignMiddleware::class,
  ]);
 
 /*
@@ -97,9 +99,12 @@ $app->singleton(
  $app->register(Dingo\Api\Provider\LumenServiceProvider::class); //注册dingo
  $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class); //注册jwt
  $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);//基础命令
+ $app->register(App\Providers\SysApiServiceProvider::class); //Api
+ $app->register(App\Providers\CheckSignServiceProvider::class); //Api
 
 
-
+class_alias('App\Facades\SysApi', 'sysApi');
+class_alias('App\Facades\CheckSign', 'checkSign');
 class_alias('Dingo\Api\Facade\API', 'Api');
 class_alias('Dingo\Api\Facade\Route', 'ApiRoute');
 class_alias('Tymon\JWTAuth\Facades\JWTAuth', 'JWTAuth');
