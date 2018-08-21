@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Administrator
@@ -13,6 +14,8 @@ $api->version('v1',function($api){
 
         $api->post('updateOrder','OrderController@updateOrder'); //修改会员同步
 
+        $api->get('syncCommission','CommissionController@addCommission'); //添加佣金
+
     });
 
 
@@ -25,6 +28,8 @@ $api->version('v1',function($api){
         $api->post('updateOrderGoods','OrderGoodsController@updateOrderGoods'); //修改会员同步
 
     });
+
+
 
 
 
