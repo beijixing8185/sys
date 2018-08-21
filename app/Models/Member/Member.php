@@ -16,4 +16,10 @@ class Member extends Model
        return self::insert($data);
     }
 
+
+    public static function updates($zid,$uid,$data)
+    {
+        return self::where('site_id',$zid)->where('member_id',$uid)->update($data);
+    }
+
 }

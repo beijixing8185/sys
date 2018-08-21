@@ -27,4 +27,23 @@ class MemberController extends Controller
         Member::add($param);
 
     }
+
+
+    public function updateMember(Request $request)
+    {
+        $param = $request ->all();
+        $this ->validate($request,[
+            'uid'=>'required|integer',
+            'zid'=>'required|integer'
+        ]);
+        if(isset($param['nickname'])){
+            $data['display_name'] = $param['display_name'];
+            Member::updates($param['zid'],$param['uid'],$data);
+        }
+        if(isset($param['display_avatar'])){
+            $data['display_avatar'] = $param['display_avatar'];
+            Member::updates($param['zid'],$param['uid'],$data);
+        }
+
+    }
 }
