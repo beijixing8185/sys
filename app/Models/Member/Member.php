@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Member extends Model
 {
 
+    public $timestamps = false;
     /**
      * 添加用户
      * @param $request
      */
     public static function add(array $data){
-       return self::insert($data);
+       return self::insertGetId($data);
     }
 
 

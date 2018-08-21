@@ -14,8 +14,16 @@ use Illuminate\Database\Eloquent\Model;
 class OrderGood extends Model
 {
 
-    public function orderUpdate($zid,$site_order_id,$data)
+    public $timestamps = false;
+    /**
+     * 修改主订单状态
+     * @param $zid  组织着id
+     * @param $site_order_id    组织者订单号id
+     * @param $data 修改的数据
+     * @return mixed
+     */
+    public static function orderGoodsUpdate($zid,$site_order_id,$data)
     {
-        self::where('site_id',$zid) ->where('site_order_id',$site_order_id) ->update($data);
+        return self::where('site_id',$zid) ->where('site_order_id',$site_order_id) ->update($data);
     }
 }
