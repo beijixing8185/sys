@@ -103,7 +103,7 @@ $app->singleton(
  $app->register(App\Providers\CheckSignServiceProvider::class); //Api
 
 
-class_alias('App\Facades\SysApi', 'sysApi');
+class_alias('App\Facades\SysApi', 'SysApi');
 class_alias('App\Facades\CheckSign', 'checkSign');
 class_alias('Dingo\Api\Facade\API', 'Api');
 class_alias('Dingo\Api\Facade\Route', 'ApiRoute');

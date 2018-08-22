@@ -20,4 +20,6 @@ class SysApiServices extends srvAbstractApi
     public function apiArray($code = 0,$message='',$data=''){
         return ['code'=>$code,'message'=>$message,'data'=>$data];
     }
+
+
 }
