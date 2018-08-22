@@ -19,7 +19,7 @@ class OrderController extends Controller
 {
 
     /**
-     * 添加组织者下的会员用户
+     * 添加组织者下的会员用户 @srv队列任务同步数据时时所用
      * @param Request $request
      */
     public function addOrder(Request $request)
@@ -32,7 +32,7 @@ class OrderController extends Controller
 
 
     /**
-     * 修改订单数据
+     * 修改订单数据 @srv队列任务同步数据时时所用
      * @param Request $request
      */
     public function updateOrder(Request $request)

@@ -19,7 +19,30 @@ class MemberController extends Controller
 {
 
     /**
-     * 添加组织者下的会员用户
+     * 所有会员列表
+     */
+    public function memberList()
+    {
+        Member::
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * 添加组织者下的会员用户  @srv队列任务同步数据时时所用
      * @param Request $request
      */
     public function addMember(Request $request)
@@ -31,6 +54,11 @@ class MemberController extends Controller
     }
 
 
+    /**
+     * 修改会员信息，@srv队列任务同步数据时时所用
+     * @param Request $request
+     * @return mixed
+     */
     public function updateMember(Request $request)
     {
         $param = $request ->all();

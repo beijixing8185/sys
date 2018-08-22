@@ -18,7 +18,7 @@ class OrderGoodsController extends Controller
 {
 
     /**
-     * 添加子订单信息，
+     * 添加子订单信息，@srv队列任务同步数据时时所用
      * @param Request $request
      * @return mixed
      *
@@ -33,7 +33,7 @@ class OrderGoodsController extends Controller
 
 
     /**
-     * 修改订单子表
+     * 修改订单子表 @srv队列任务同步数据时时所用
      * @param Request $request
      */
     public function updateOrderGoods(Request $request)
@@ -43,7 +43,7 @@ class OrderGoodsController extends Controller
         $rules = ['plat_order_state' => ['required','integer'],'zid' => ['required','integer'],'plat_order_goods_id' => ['required','integer']];
         $validator = app('validator')->make($param, $rules);
         if($validator->fails()){
-            return SysApi::apiResponse(-1,'缺少需要修改的参数');
+            return SysApi::apiResponse(-1,'请求参数错误，请检查');
         }else {
                 $data['plat_order_state'] = $param['plat_order_state'];
                 $orderGoods = OrderGood::orderGoodsUpdate($param['zid'], $param['plat_order_goods_id'], $data);

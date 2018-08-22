@@ -21,9 +21,9 @@ $api->version('v1',function($api){
 
 
     //组织者的订单信息
-    $api->group(['namespace' => 'App\Controllers\V1\OrderGoods', 'prefix' => 'orderGoods'], function ($api) {
+    $api->group(['namespace' => 'App\Controllers\V1\Order', 'prefix' => 'orderGoods'], function ($api) {
 
-        $api->any('addOrderGoods','OrderGoodsController@addOrderGoods'); //新增会员同步
+        $api->post('addOrderGoods','OrderGoodsController@addOrderGoods'); //新增会员同步
 
         $api->any('updateOrderGoods','OrderGoodsController@updateOrderGoods'); //修改会员同步
 

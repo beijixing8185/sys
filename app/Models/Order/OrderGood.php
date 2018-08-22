@@ -24,6 +24,6 @@ class OrderGood extends Model
      */
     public static function orderGoodsUpdate($zid,$site_order_id,$data)
     {
-        return self::where('site_id',$zid) ->where('site_order_id',$site_order_id) ->update($data);
+        return self::where('site_id',$zid) ->where('site_order_goods_id',$site_order_id) ->update($data);
     }
 }

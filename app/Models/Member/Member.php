@@ -18,6 +18,13 @@ class Member extends Model
     }
 
 
+    /**
+     * 修改用户，
+     * @param $zid 组织者id
+     * @param $uid 用户id
+     * @param $data
+     * @return mixed
+     */
     public static function updates($zid,$uid,$data)
     {
         return self::where('site_id',$zid)->where('member_id',$uid)->update($data);
