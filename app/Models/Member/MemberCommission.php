@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class MemberCommission extends Model
 {
+    protected $fillable = ['member_id','site_id'];
     /**
      * 查询单条数据
      */
