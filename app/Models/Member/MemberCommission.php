@@ -13,7 +13,7 @@ class MemberCommission extends Model
         $data = ['member_id'=>$data['member_id'],'site_id'=>$data['site_id']];
         $result = self::where($data)->first();
         if(!$result){
-            $result = self::creat($data);
+            $result = self::create($data);
         }
         return $result;
     }
