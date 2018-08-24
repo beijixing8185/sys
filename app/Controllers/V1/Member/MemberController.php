@@ -23,7 +23,7 @@ class MemberController extends Controller
      */
     public function memberList()
     {
-        Member::
+        Member::add();
     }
 
 

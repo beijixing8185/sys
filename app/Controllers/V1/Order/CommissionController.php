@@ -83,6 +83,8 @@ class CommissionController extends Controller
      */
     public function  rebateCommission(Request $request){
         $params = $request->all();
+        Log::info('返利获取的数据'.json_encode($params));
+        dd(11);
         $commission = $this->getCommission($params);
 
         DB::beginTransaction();

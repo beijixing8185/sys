@@ -14,6 +14,8 @@ $api->version('v1',function($api){
         $api->post('syncFreezeCommission', 'CommissionController@freezeCommission'); //冻结佣金
         $api->post('syncRebateCommission', 'CommissionController@rebateCommission'); //佣金返利
     });
+
+
     //组织者的订单信息
     $api->group(['namespace' => 'App\Controllers\V1\Order', 'prefix' => 'order'], function ($api) {
 
