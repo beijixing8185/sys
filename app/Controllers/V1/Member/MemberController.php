@@ -28,8 +28,6 @@ class MemberController extends Controller
     {
         $param = $request ->all();
         if(empty($param['id']) || !is_numeric($param['id'])) return SysApi::apiResponse(422,'校验错误，缺少需要的参数');
-
-
         $data = Member::getUserForId($param['id']);
         if(!empty($data)) return SysApi::apiResponse(0,'会员信息获取成功',$data);
         return SysApi::apiResponse(430,'没有找到你要的数据');
