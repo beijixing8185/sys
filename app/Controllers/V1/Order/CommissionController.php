@@ -130,7 +130,7 @@ class CommissionController extends Controller
         foreach($orginate as $k=>$v){
             $i++;
             $param = 'organization'.$i;
-            $orgination_commision = bcmul($goodsRebate->$param,$orders_number,2);
+            $orgination_commision = bcmul($goodsRebate[$param],$orders_number,2);
             $data = array_merge($data,['commission'=>$orgination_commision]);
 
             if($v > 1){
