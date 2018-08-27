@@ -18,7 +18,8 @@ $router->get('/', function () use ($router) {
 $api = app('Dingo\Api\Routing\Router');
 
 //路由文件引入
-$route_array = ['member.php','order.php'];
+$route_array = ['sync.php','member.php','order.php'];
+
 foreach($route_array as $v){
     require_once ROUTE_PATH.$v;
 }

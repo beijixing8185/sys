@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\V1\Order;
+namespace App\Controllers\V1\Sync;
 
 use App\Facades\SysApi;
 use App\Models\Organization\OrganizationDetail;

@@ -6,7 +6,7 @@
  * Time: 17:07
  */
 
-namespace App\Controllers\V1\Order;
+namespace App\Controllers\V1\Sync;
 
 
 use App\Facades\SysApi;
@@ -27,6 +27,7 @@ class OrderGoodsController extends Controller
     {
         $data = $request ->all();
         $orderGoodId = OrderGood::insertGetId($data);
+
         if(!$orderGoodId) return SysApi::apiResponse(-1,'添加订单失败');
         return SysApi::apiResponse(0,'添加订单成功',$orderGoodId);
     }
@@ -40,13 +41,18 @@ class OrderGoodsController extends Controller
     {
 
         $param = $request ->all();
-        $rules = ['plat_order_state' => ['required','integer'],'zid' => ['required','integer'],'plat_order_goods_id' => ['required','integer']];
+        $rules = [
+            'plat_order_state' => ['required','integer'],
+            'zid' => ['required','integer'],
+            'plat_order_goods_id' => ['required','integer']
+        ];
         $validator = app('validator')->make($param, $rules);
         if($validator->fails()){
             return SysApi::apiResponse(-1,'请求参数错误，请检查');
         }else {
                 $data['plat_order_state'] = $param['plat_order_state'];
                 $orderGoods = OrderGood::orderGoodsUpdate($param['zid'], $param['plat_order_goods_id'], $data);
+
                 if (!$orderGoods) return SysApi::apiResponse(-1, '修改订单失败');
                 return SysApi::apiResponse(0, '修改订单成功');
         }
