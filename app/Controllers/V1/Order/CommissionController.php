@@ -123,9 +123,9 @@ class CommissionController extends Controller
         $orders_number = $params['orders_number'];
         $detail_order_sn = $params['detail_order_sn'];
 
-        //取出有值的父级
-        $first_orginate =  $orginate['ppid']  ?: $orginate['pid'];
-        $first_orginate = $first_orginate ?: $orginate['id'];
+        //取出有值并且大于1的父级
+        $first_orginate =  ($orginate['ppid'] >1) ? $orginate['ppid'] : $orginate['pid'];
+        $first_orginate = ($first_orginate > 1) ? $first_orginate : $orginate['id'];
         $i = 0;
         foreach($orginate as $k=>$v){
             $i++;
