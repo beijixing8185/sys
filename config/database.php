@@ -61,7 +61,7 @@ return [
             'driver'    => 'mysql',
             'host'      => env('DB_HOST', 'localhost'),
             'port'      => env('DB_PORT', 3306),
-            'database'  => !empty($user = Auth::user()) ? $user->mobile : env('DB_DATABASE', 'forge'),
+            'database'  => env('DB_DATABASE', 'forge'),
             'username'  => env('DB_USERNAME', 'forge'),
             'password'  => env('DB_PASSWORD', ''),
             'charset'   => env('DB_CHARSET', 'utf8mb4'),

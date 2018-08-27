@@ -19,6 +19,7 @@ $api->version('v1',function($api){
 
     //佣金同步      as     //组织者的订单信息
     $api->group(['namespace' => 'App\Controllers\V1\Sync','prefix'=>'order'], function ($api) { //,'middleware'=>'jwt.auth'
+
         $api->post('syncCommission', 'CommissionController@addCommission'); //添加佣金
 
         $api->post('syncFreezeCommission', 'CommissionController@freezeCommission'); //冻结佣金
