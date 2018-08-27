@@ -6,7 +6,7 @@
  * Time: 15:05
  */
 
-namespace App\Controllers\V1\Member;
+namespace App\Controllers\V1\Sync;
 
 
 use App\Facades\SysApi;
@@ -95,8 +95,6 @@ class MemberController extends Controller
      }
 
 
-
-
     /**
      * 添加组织者下的会员用户  @srv队列任务同步数据时时所用
      * @param Request $request
@@ -105,6 +103,7 @@ class MemberController extends Controller
     {
         $param = $request ->all();
         $member = Member::add($param);
+
         if(!$member) return SysApi::apiResponse(-1,'失败，请稍后重新尝试');
         return SysApi::apiResponse(0,'会员信息修改成功');
     }
@@ -117,23 +116,27 @@ class MemberController extends Controller
      */
     public function updateMember(Request $request)
     {
+        $data = [];
         $param = $request ->all();
-        $rules = ['uid' => ['required','integer'],'zid' => ['required','integer']];
+        $rules = [
+            'uid' => ['required','integer'],
+            'zid' => ['required','integer']
+        ];
         $validator = app('validator')->make($param, $rules);
         if($validator->fails()){
-            return SysApi::apiResponse(-1,'缺少需要修改的参数');
+            return SysApi::apiResponse(422,'缺少需要修改的参数');
         }
         if(isset($param['nickname'])){
             $data['display_name'] = $param['display_name'];
-            Member::updates($param['zid'],$param['uid'],$data);
-            return SysApi::apiResponse(0,'会员信息修改成功');
         }
         if(isset($param['display_avatar'])){
             $data['display_avatar'] = $param['display_avatar'];
-            Member::updates($param['zid'],$param['uid'],$data);
-            return SysApi::apiResponse(0,'会员信息修改成功');
         }
-        return SysApi::apiResponse(-1,'传参有误，请确认');
 
+        //数据库操作
+        $result = Member::updates($param['zid'],$param['uid'],$data);
+
+        if($result) return SysApi::apiResponse(0,'会员信息修改成功');
+        return SysApi::apiResponse(-1,'修改失败，稍后再试');
     }
 }
