@@ -3,6 +3,8 @@
 namespace App\Controllers\V1\Sync;
 
 use App\Facades\SysApi;
+use App\Models\Organization\OrganizationDetail;
+use App\Models\Organization\OrganizationRecord;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -14,12 +16,15 @@ class CommissionController extends Controller
 {
     public $commissionRecord;
     public $memberCommission;
+    public $organizationDetail;
     public function __construct(
         MemberCommission $memberCommission,
-        MemberCommissionRecord $commissionRecord)
+        MemberCommissionRecord $commissionRecord,
+        OrganizationDetail $organizationDetail                                       )
     {
         $this->commissionRecord = $commissionRecord;
         $this->memberCommission = $memberCommission;
+        $this->organizationDetail = $organizationDetail;
     }
 
     /**
@@ -83,8 +88,7 @@ class CommissionController extends Controller
      */
     public function  rebateCommission(Request $request){
         $params = $request->all();
-        Log::info('返利获取的数据'.json_encode($params));
-        dd(11);
+
         $commission = $this->getCommission($params);
 
         DB::beginTransaction();
@@ -98,6 +102,9 @@ class CommissionController extends Controller
             //添加佣金记录
             $this->commissionRecord::add($params);
 
+            //给组织返利
+            $this->rebateOrginateCommission($params);
+
             DB::commit();
             return SysApi::apiResponse();
         }catch(Exception $e){
@@ -105,5 +112,38 @@ class CommissionController extends Controller
             Log::info('佣金记录失败:在CommissionController@addCommission'.'-错误信息:'.$e->getMessage());
             return SysApi::apiResponse(-1,$e->getMessage());
         }
+    }
+
+    public function rebateOrginateCommission($params){
+
+        $data = $params['data'];
+        $orginate = $params['orginate'];
+        $sale_money = $params['sale_money'];
+        $goodsRebate = $params['goodsRebate'];
+        $orders_number = $params['orders_number'];
+        $detail_order_sn = $params['detail_order_sn'];
+
+        //取出有值的父级
+        $first_orginate =  $orginate['ppid']  ?: $orginate['pid'];
+        $first_orginate = $first_orginate ?: $orginate['id'];
+        $i = 0;
+        foreach($orginate as $k=>$v){
+            $i++;
+            $param = 'organization'.$i;
+            $orgination_commision = bcmul($goodsRebate[$param],$orders_number,2);
+            $data = array_merge($data,['commission'=>$orgination_commision]);
+
+            if($v > 1){
+                $data['msg'] = '子订单编号为:'.$detail_order_sn.'-返利给组织id为:'.$v;
+            }else{
+                $data['msg'] =  '子订单编号为:'.$detail_order_sn.'-组织id为'.$v.',属于最高级组织,直接返利至一级组织';
+            }
+            $this->organizationDetail::updateCommission($first_orginate,$params['site_id'],$orgination_commision,$orders_number,$sale_money);
+            //添加一条收支记录明细
+            $data['site_id'] = $params['site_id'];
+            OrganizationRecord::add($data);
+        }
+
+
     }
 }
