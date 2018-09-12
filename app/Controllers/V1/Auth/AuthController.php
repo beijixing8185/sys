@@ -2,7 +2,7 @@
 
 namespace App\Controllers\V1\Auth;
 
-use App\Models\AdminSite;
+use App\Models\Admin\AdminSite;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
