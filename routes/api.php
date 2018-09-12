@@ -14,6 +14,7 @@ define('ROUTE_PATH',__DIR__ .'/');
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
 $api = app('Dingo\Api\Routing\Router');
 
 //路由文件引入

@@ -123,9 +123,8 @@ class CommissionController extends Controller
         $orders_number = $params['orders_number'];
         $detail_order_sn = $params['detail_order_sn'];
 
-        //取出有值的父级
-        $first_orginate =  $orginate['ppid']  ?: $orginate['pid'];
-        $first_orginate = $first_orginate ?: $orginate['id'];
+        //1级组织id等于1
+        $first_orginate =  1;
         $i = 0;
         foreach($orginate as $k=>$v){
             $i++;
@@ -135,6 +134,7 @@ class CommissionController extends Controller
 
             if($v > 1){
                 $data['msg'] = '子订单编号为:'.$detail_order_sn.'-返利给组织id为:'.$v;
+                $first_orginate = $v;
             }else{
                 $data['msg'] =  '子订单编号为:'.$detail_order_sn.'-组织id为'.$v.',属于最高级组织,直接返利至一级组织';
             }
