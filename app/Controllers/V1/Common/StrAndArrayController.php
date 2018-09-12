@@ -24,8 +24,9 @@ class StrAndArrayController extends Controller
     {
         foreach ($array as $key => $val){
             if (!in_array($key,$data)) {
-                return SysApi::apiResponse(104,'业务参数错误，请校验后提交');
+                return false;
             }
         }
+        return true;
     }
 }
