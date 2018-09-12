@@ -57,6 +57,7 @@ class MemberController extends Controller
         $where = '';
         if(isset($param['member_name'])){ $where = ' and member_name like "%'.$param['member_name'].'%"'; } //模糊搜索会员名称
         if(isset($param['lock_state'])){ $where = ' and lock_state = '.$param['lock_state']; }  //根据会员状态搜索
+        if(isset($param['grade'])){ $where = ' and grade = '.$param['grade']; }  //根据会员等级搜索
         $num = isset($param['num']) ? $param['num'] : 10; //获取多少条
         $page = isset($param['page']) ? $param['page'] : 1;//当前页码
         $member_list = Member::getMemberList($where,$num,$page);
@@ -76,12 +77,10 @@ class MemberController extends Controller
      public function saveMember(Request $request)
      {
          $param = $request->all();
-         if(empty($param)) return SysApi::apiResponse(-1,'缺少需要修改的参数');
          $rules = [
              'lock_state' => ['integer'],
              'id'=>['integer','required'],
              'grade'=>['integer'],
-             'lock_state'=>['integer']
          ];
          $validator = app('validator')->make($param, $rules);
          if($validator->fails()){
@@ -90,14 +89,9 @@ class MemberController extends Controller
 
          $data = Member::updateMember($param['id'],$param);//数据库操作
 
-         if($data == false){    //用来校验传过来的参数
-             if($data==1) return SysApi::apiResponse(0,'数据更新成功');
-             return SysApi::apiResponse(-1,'数据更新失败了');
-         }else{
-             return $data;
-         }
-
-
+         //用来校验传过来的参数
+         if($data == true) return SysApi::apiResponse(0,'数据更新成功');
+         return SysApi::apiResponse(-1,'数据更新失败');
      }
 
 

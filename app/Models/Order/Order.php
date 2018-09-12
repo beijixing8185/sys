@@ -15,6 +15,26 @@ class Order extends Model
 {
 
     public $timestamps = false;
+
+    public static $field = ['id','create_time','sku_name','sku_image','transport_cost','number','transport_time','arrival_time','finish_time','detail_order_sn','member_id'];   //需要查询的字段
+
+
+    /**
+     * 订单列表
+     * @param $where
+     * @param int $perPage
+     * @param null $page
+     * @return mixed
+     */
+    public static function orderList($where,$perPage = 10,$page = null)
+    {
+        return self::whereRaw('id > 0 '.$where)
+            ->orderBy('id','desc')
+            ->paginate($perPage,self::$field,'page',$page);
+    }
+
+
+
     /**
      * 添加订单
      * @param $data

@@ -56,10 +56,10 @@ class Member extends Model
     public static function updateMember($id, $data)
     {
         $state =  StrAndArrayController::isExistArray($data,self::$field_validate);
-        if(isset($state)){
-            return $state;
+        if($state == true){
+            return self::where('id', $id)->update($data);
         }
-        return self::where('id', $id)->update($data);
+        return false;
     }
 
     /**
@@ -91,6 +91,9 @@ class Member extends Model
 
         // 本年数据
         $data['customer_this_year'] = self::whereYear('created_at', Carbon::now()->year)->count();
+
+        // 已封用户数据
+        $data['count_state'] = self::whereRaw('lock_state !=0')->count();
 
         // 全部数据
         $data['count_all'] = self::count();
