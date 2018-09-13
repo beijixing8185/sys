@@ -99,6 +99,8 @@ class CommissionController extends Controller
             $commission->orders_number = $commission->orders_number + $params['orders_number'];
             $commission->sale_money = bcadd($commission->sale_money,$params['sale_money'],2);
 
+            $commission->save();
+
             //添加佣金记录
             $this->commissionRecord::add($params);
 
