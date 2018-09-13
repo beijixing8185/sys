@@ -70,17 +70,17 @@ $app->singleton(
 |
 */
 
-/*$app->middleware([
-   App\Http\Middleware\ExampleMiddleware::class
+$app->middleware([
+   //App\Http\Middleware\ExampleMiddleware::class
 
-]);*/
+]);
 
  $app->routeMiddleware([
      'auth' => App\Http\Middleware\Authenticate::class,
      'cors' => \Barryvdh\Cors\HandleCors::class,  //添加跨域
      'check_sign' => App\Http\Middleware\checkSignMiddleware::class,
-     'permission' => Spatie\Permission\Middlewares\PermissionMiddleware::class,
-     'role'       => Spatie\Permission\Middlewares\RoleMiddleware::class,
+     //'permission' => Spatie\Permission\Middlewares\PermissionMiddleware::class,
+     //'role'       => Spatie\Permission\Middlewares\RoleMiddleware::class,
  ]);
 
 /*
@@ -105,7 +105,7 @@ $app->singleton(
  $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);//基础命令
  $app->register(App\Providers\SysApiServiceProvider::class); //Api
  $app->register(App\Providers\CheckSignServiceProvider::class); //CheckSign
- $app->register(Spatie\Permission\PermissionServiceProvider::class);
+ //$app->register(Spatie\Permission\PermissionServiceProvider::class);
 
 
 class_alias('App\Facades\SysApi', 'SysApi');

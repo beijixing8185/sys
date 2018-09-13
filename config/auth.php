@@ -61,7 +61,7 @@ return [
     'providers' => [
         'admin_sites' => [
             'driver' => 'eloquent',
-            'model' => App\Models\AdminSite::class,
+            'model' => App\Models\Admin\AdminSite::class,
         ],
     ],
 

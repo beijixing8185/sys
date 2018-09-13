@@ -119,30 +119,33 @@ class CommissionController extends Controller
         $data = $params['data'];
         $orginate = $params['orginate'];
         $sale_money = $params['sale_money'];
-        $goodsRebate = $params['goodsRebate'];
         $orders_number = $params['orders_number'];
         $detail_order_sn = $params['detail_order_sn'];
+        $rebate = $params['rebate'];
 
-        //1级组织id等于1
-        $first_orginate =  1;
-        $i = 0;
+
+        $count = count($orginate);
+        $i = $count;
         foreach($orginate as $k=>$v){
-            $i++;
-            $param = 'organization'.$i;
-            $orgination_commision = bcmul($goodsRebate[$param],$orders_number,2);
-            $data = array_merge($data,['commission'=>$orgination_commision]);
-
-            if($v > 1){
-                $data['msg'] = '子订单编号为:'.$detail_order_sn.'-返利给组织id为:'.$v;
-                $first_orginate = $v;
+            $i--;
+            if($count == 3){
+                $rebate_array = $rebate;
+            }else if($count == 2){
+                $rebate_array = [
+                    'id'   => bcadd($rebate['id'],$rebate['pid'],2),
+                    'pid'  => $rebate['ppid'],
+                ];
             }else{
-                $data['msg'] =  '子订单编号为:'.$detail_order_sn.'-组织id为'.$v.',属于最高级组织,直接返利至一级组织';
+                $rebate_array = ['id'=>$params['org_rebate']];
             }
-            $this->organizationDetail::updateCommission($first_orginate,$params['site_id'],$orgination_commision,$orders_number,$sale_money);
+            $data['msg'] =  '子订单编号为:'.$detail_order_sn.'-组织id为'.$v.',属于最第'.($i+1).'级组,本次获得佣金为'.$rebate_array[$k];
+            $data['commission'] =  $rebate_array[$k];
+            $this->organizationDetail::updateCommission($v,$params['site_id'],$rebate_array[$k],$orders_number,$sale_money);
             //添加一条收支记录明细
             $data['site_id'] = $params['site_id'];
             OrganizationRecord::add($data);
         }
+
 
 
     }
