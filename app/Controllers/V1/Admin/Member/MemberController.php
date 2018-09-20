@@ -27,7 +27,7 @@ class MemberController extends Controller
      */
     public function getMemberFind(Request $request)
     {
-        $param = $request ->all();
+        $param = $request->all();
         if(empty($param['id']) || !is_numeric($param['id'])) return SysApi::apiResponse(422,'校验错误，缺少需要的参数');
 
         $data = Member::getUserForId($param['id']); //数据库操作
