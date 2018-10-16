@@ -29,9 +29,6 @@ $api->version('v1',function($api){
 
         $api->get('getOrderGoodsNumber','OrderGoodsController@getOrderGoodsNumber'); //订单状态数量统计
 
-
-
     });
-
 
 });

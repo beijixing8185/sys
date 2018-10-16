@@ -44,7 +44,7 @@ class AuthController extends Controller
         $credentials = $req->only(['mobile', 'password']);
 
         if (! $token = Auth::attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['code'=>401,'message' => 'Unauthorized','data'=>'']);
         }
 
         return $this->respondWithToken($token);
