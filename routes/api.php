@@ -36,7 +36,7 @@ $api->version('v1',function($api){
 
 
     //测试
-    $api->group(['namespace' => 'App\Controllers\V1','middleware'=>'jwt.auth'], function ($api) { //
+    $api->group(['namespace' => 'App\Controllers\V1'], function ($api) { //
         $api->get('test','TestController@test'); //临时测试
     });
 

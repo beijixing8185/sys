@@ -10,7 +10,7 @@ $api->version('v1',function($api){
     //组织者的会员信息
     $api->group(['namespace' => 'App\Controllers\V1\Sync', 'prefix' => 'member'], function ($api) {
 
-        $api->post('syncAddMember','MemberController@addMember'); //新增会员同步 @srv队列任务同步数据时时所用
+        $api->post('syncAddMember','MemberController@addmember'); //新增会员同步 @srv队列任务同步数据时时所用
 
         $api->post('syncUpdateMember','MemberController@updateMember'); //修改会员同步 @srv队列任务同步数据时时所用
 
