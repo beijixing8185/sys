@@ -13,7 +13,6 @@ use App\Facades\SysApi;
 use App\Http\Controllers\Controller;
 use App\Models\Goods\GoodsClass;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class GoodsClassController extends Controller
 {
@@ -39,16 +38,7 @@ class GoodsClassController extends Controller
         return SysApi::apiResponse(0,'数据获取成功',$result);
     }
 
-    /**
-     * 添加组织者下的会员用户  @srv队列任务同步数据时时所用
-     * @param Request $request
-     */
-    public function test(Request $request)
-    {
 
-        Log::info('接收到得数据：1111111');
-        return SysApi::apiResponse(0,'会员信息修改1111111');
-    }
 
 
 
