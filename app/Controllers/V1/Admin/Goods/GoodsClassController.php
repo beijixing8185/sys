@@ -13,6 +13,7 @@ use App\Facades\SysApi;
 use App\Http\Controllers\Controller;
 use App\Models\Goods\GoodsClass;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class GoodsClassController extends Controller
 {

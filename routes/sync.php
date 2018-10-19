@@ -13,7 +13,7 @@ $api->version('v1',function($api){
 
         $api->post('syncUpdateMember','MemberController@updateMember'); //修改会员同步 @srv队列任务同步数据时时所用
 
-        
+
 
     });
 
