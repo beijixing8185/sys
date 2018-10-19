@@ -16,6 +16,7 @@ class OrderGoods extends Model
 {
 
     public $timestamps = false;
+    protected $table = "order_goods";
 
     public static $field = ['id','create_time','sku_name','sku_image','transport_cost','number','transport_time','arrival_time','finish_time','detail_order_sn','member_id'];   //需要查询的字段
 
@@ -91,8 +92,17 @@ class OrderGoods extends Model
      * @param $data //修改的数据
      * @return mixed
      */
-    public static function orderGoodsUpdate($zid,$site_order_id,$data)
+    public static function orderGoodsUpdate($zid,$order_id,$order_state)
     {
-        return self::where('site_id',$zid) ->where('site_order_goods_id',$site_order_id) ->update($data);
+        return self::whereId($order_id)->where('site_id',$zid)->update(['plat_order_state'=>$order_state]);
+    }
+
+    /**
+     * 根据主订单修改子订单状态
+     * 根据组织者id修改
+     */
+    public static function updateOrderGoodsState($zid,$order_id,$order_state)
+    {
+        return self::where('plat_order_id',$order_id)->where('site_id',$zid)->update(['plat_order_state'=>$order_state]);
     }
 }

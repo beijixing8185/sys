@@ -12,6 +12,7 @@ namespace App\Controllers\V1\Sync;
 use App\Facades\SysApi;
 use App\Http\Controllers\Controller;
 use App\Models\Order\OrderGood;
+use App\Models\Order\OrderGoods;
 use Illuminate\Http\Request;
 
 class OrderGoodsController extends Controller
@@ -50,11 +51,14 @@ class OrderGoodsController extends Controller
         if($validator->fails()){
             return SysApi::apiResponse(-1,'请求参数错误，请检查');
         }else {
-                $data['plat_order_state'] = $param['plat_order_state'];
-                $orderGoods = OrderGood::orderGoodsUpdate($param['zid'], $param['plat_order_goods_id'], $data);
+            $data['plat_order_state'] = $param['plat_order_state'];
+            $orderGoods = OrderGoods::orderGoodsUpdate($param['zid'], $param['plat_order_goods_id'], $param['plat_order_state']);
 
-                if (!$orderGoods) return SysApi::apiResponse(-1, '修改订单失败');
-                return SysApi::apiResponse(0, '修改订单成功');
+            $msg = '修改订单状态为'.$param['plat_order_state'];
+            LogOrderPlat::logOrderPlat(0,$param['plat_order_goods_id'],$msg,$param['plat_order_state'],0,'用户',$param['zid']);
+
+            if (!$orderGoods) return SysApi::apiResponse(-1, '修改订单失败');
+            return SysApi::apiResponse(0, '修改订单成功');
         }
     }
 

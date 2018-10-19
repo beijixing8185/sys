@@ -11,8 +11,11 @@ namespace App\Controllers\V1\Sync;
 
 use App\Facades\SysApi;
 use App\Http\Controllers\Controller;
+use App\Models\Log\LogOrderPlat;
 use App\Models\Order\Order;
+use App\Models\Order\OrderGoods;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 class OrderController extends Controller
@@ -48,8 +51,14 @@ class OrderController extends Controller
         if($validator->fails()){
             return SysApi::apiResponse(-1,'缺少需要修改的参数');
         }else{
+            //此处未使用事务
             $data['plat_order_state'] = $param['plat_order_state'];
             $result = Order::updateOrderState($param['zid'],$param['plat_order_id'],$data);
+            if($param['plat_order_state'] == 2){
+                OrderGoods::updateOrderGoodsState($param['zid'],$param['plat_order_id'],$param['plat_order_state']);
+            }
+            $msg = '修改订单状态为'.$param['plat_order_state'];
+            LogOrderPlat::logOrderPlat($param['plat_order_id'],0,$msg,$param['plat_order_state'],0,'用户',$param['zid']);
 
             if(!$result) return SysApi::apiResponse(-1,'修改订单状态失败');
             return SysApi::apiResponse(0,'修改订单状态成功',$result);
