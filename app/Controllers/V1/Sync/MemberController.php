@@ -26,8 +26,9 @@ class MemberController extends Controller
     public function add(Request $request)
     {
         $param = $request ->all();
-        Log::info('接收到得数据：'.json_encode($param));
-        $member = Member::add($param);
+        $params =array_pop($param);
+        Log::info('接收到得数据：'.json_encode($params));
+        $member = Member::add($params);
         Log::info('处理得数据：'.$member);
         if(!$member) return SysApi::apiResponse(-1,'失败，请稍后重新尝试');
 
@@ -44,6 +45,7 @@ class MemberController extends Controller
     {
         $data = [];
         $param = $request ->all();
+        Log::info('接收到得数据：'.json_encode($param));
         $rules = [
             'uid' => ['required','integer'],
             'zid' => ['required','integer']
@@ -52,17 +54,18 @@ class MemberController extends Controller
         if($validator->fails()){
             return SysApi::apiResponse(422,'缺少需要修改的参数');
         }
-        if(isset($param['nickname'])){
+
+        if(isset($param['display_name'])){
             $data['display_name'] = $param['display_name'];
         }
         if(isset($param['display_avatar'])){
             $data['display_avatar'] = $param['display_avatar'];
         }
-
         //数据库操作
         $result = Member::updates($param['zid'],$param['uid'],$data);
 
         if($result) return SysApi::apiResponse(0,'会员信息修改成功');
         return SysApi::apiResponse(-1,'修改失败，稍后再试');
     }
+
 }

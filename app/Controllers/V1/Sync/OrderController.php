@@ -15,7 +15,7 @@ use App\Models\Log\LogOrderPlat;
 use App\Models\Order\Order;
 use App\Models\Order\OrderGoods;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Log;
 
 
 class OrderController extends Controller
@@ -29,6 +29,7 @@ class OrderController extends Controller
     {
         //添加主订单
         $param = $request ->all();
+        Log::info('得到得数组为：'.json_encode($param));
         $order = Order::addOrder($param['order']);
 
         //添加子订单
