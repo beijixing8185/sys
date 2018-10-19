@@ -26,13 +26,12 @@ class MemberController extends Controller
     public function add(Request $request)
     {
         $param = $request ->all();
-
-        Log::info('接收到得数据：'.json_encode($param));
+        /*Log::info('接收到得数据：'.json_encode($param));*/
         $member = Member::add($param);
-        Log::info('处理得数据：'.$member);
+        /*Log::info('处理得数据：'.$member);*/
         if(!$member) return SysApi::apiResponse(-1,'失败，请稍后重新尝试');
 
-        return SysApi::apiResponse(0,'会员信息修改成功');
+        return SysApi::apiResponse(0,'会员信息添加成功');
     }
 
 
