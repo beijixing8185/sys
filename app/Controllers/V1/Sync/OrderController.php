@@ -15,7 +15,7 @@ use App\Models\Log\LogOrderPlat;
 use App\Models\Order\Order;
 use App\Models\Order\OrderGoods;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+
 
 
 class OrderController extends Controller
@@ -27,8 +27,14 @@ class OrderController extends Controller
      */
     public function addOrder(Request $request)
     {
+        //添加主订单
         $param = $request ->all();
-        $order = Order::addOrder($param);
+        $order = Order::addOrder($param['order']);
+
+        //添加子订单
+        foreach ($param['order_goods'] as $val){
+            OrderGoods::insert($val);
+        }
 
         if(!$order) return SysApi::apiResponse(-1,'添加订单失败');
         return SysApi::apiResponse(0,'添加订单成功',$order);

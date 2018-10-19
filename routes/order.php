@@ -13,8 +13,6 @@ $api->version('v1',function($api){
 
         $api->get('getOrderList','OrderController@orderList'); //主订单列表查询
 
-
-
     });
 
 
@@ -29,10 +27,6 @@ $api->version('v1',function($api){
 
         $api->get('getOrderGoodsNumber','OrderGoodsController@getOrderGoodsNumber'); //订单状态数量统计
 
-        //$api->get('getOrderGoodsNumber','OrderGoodsController@getOrderGoodsNumber'); //订单发货提醒
-
-
     });
-
 
 });

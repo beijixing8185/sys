@@ -1,16 +1,16 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2018/8/20
- * Time: 17:08
- */
+    /**
+     * Created by PhpStorm.
+     * User: Administrator
+     * Date: 2018/8/20
+     * Time: 17:08
+     */
 
 namespace App\Models\Order;
 
 
-use App\Controllers\V1\Common\StrAndArrayController;
-use Illuminate\Database\Eloquent\Model;
+    use App\Controllers\V1\Common\StrAndArrayController;
+    use Illuminate\Database\Eloquent\Model;
 
 class OrderGoods extends Model
 {
