@@ -40,4 +40,6 @@ class GoodsClassController extends Controller
 
 
 
+
+
 }

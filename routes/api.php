@@ -18,7 +18,7 @@ $router->get('/', function () use ($router) {
 $api = app('Dingo\Api\Routing\Router');
 
 //路由文件引入
-$route_array = ['sync.php','member.php','order.php','goods.php'];
+$route_array = ['goods.php','member.php','order.php','sync.php'];
 
 foreach($route_array as $v){
     require_once ROUTE_PATH.$v;
@@ -36,8 +36,13 @@ $api->version('v1',function($api){
 
 
     //测试
+
+    /*$api->group(['namespace' => 'App\Controllers\V1','middleware'=>'jwt.auth'], function ($api) { //
+        $api->post('test','TestController@test'); //临时测试*/
+
     $api->group(['namespace' => 'App\Controllers\V1'], function ($api) { //
         $api->get('test','TestController@test'); //临时测试
+
     });
 
 

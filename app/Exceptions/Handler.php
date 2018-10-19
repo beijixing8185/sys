@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -45,6 +46,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        Log::info('错误测试:'.$e->getFile().$e->getMessage());
         return parent::render($request, $e);
     }
 }

@@ -11,7 +11,6 @@ $api->version('v1',function($api){
 
         $api->get('getGoodsClassList','GoodsClassController@getGoodsClassList');    //获取商品
 
-
     });
 
 

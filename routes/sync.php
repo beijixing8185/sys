@@ -2,9 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: Administrator
- * Date: 2018/8/17
- * Time: 14:59
- * 修改于2018/8/27
+ * Date: 2018/9/12
+ * Time: 16:17
  */
 $api->version('v1',function($api){
     //组织者的会员信息
@@ -14,8 +13,9 @@ $api->version('v1',function($api){
 
         $api->post('syncUpdateMember','MemberController@updateMember'); //修改会员同步 @srv队列任务同步数据时时所用
 
-    });
 
+
+    });
 
     //佣金同步      as     //组织者的订单信息
     $api->group(['namespace' => 'App\Controllers\V1\Sync','prefix'=>'order'], function ($api) { //,'middleware'=>'jwt.auth'
@@ -30,7 +30,6 @@ $api->version('v1',function($api){
 
         $api->post('syncUpdateOrder','OrderController@updateOrder'); //修改会员同步
     });
-
 
     //组织者的订单信息
     $api->group(['namespace' => 'App\Controllers\V1\Sync', 'prefix' => 'orderGoods'], function ($api) {
