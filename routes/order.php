@@ -13,8 +13,6 @@ $api->version('v1',function($api){
 
         $api->get('getOrderList','OrderController@orderList'); //主订单列表查询
 
-
-
     });
 
 

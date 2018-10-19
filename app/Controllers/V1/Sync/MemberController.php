@@ -13,6 +13,7 @@ use App\Facades\SysApi;
 use App\Http\Controllers\Controller;
 use App\Models\Member\Member;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 
 class MemberController extends Controller
@@ -26,8 +27,9 @@ class MemberController extends Controller
     public function addMember(Request $request)
     {
         $param = $request ->all();
+        Log::info('接收到得数据：'.json_encode($param));
         $member = Member::add($param);
-
+        Log::info('处理得数据：'.$member);
         if(!$member) return SysApi::apiResponse(-1,'失败，请稍后重新尝试');
         return SysApi::apiResponse(0,'会员信息修改成功');
     }
