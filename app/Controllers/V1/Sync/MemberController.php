@@ -30,6 +30,7 @@ class MemberController extends Controller
         $member = Member::add($param);
         Log::info('处理得数据：'.$member);
         if(!$member) return SysApi::apiResponse(-1,'失败，请稍后重新尝试');
+
         return SysApi::apiResponse(0,'会员信息修改成功');
     }
 
