@@ -26,7 +26,6 @@ class MemberController extends Controller
     public function addmember(Request $request)
     {
         $param = $request ->all();
-        dd($param);
         Log::info('接收到得数据：'.json_encode($param));
         $member = Member::add($param);
         Log::info('处理得数据：'.$member);
