@@ -66,14 +66,5 @@ class MemberController extends Controller
         return SysApi::apiResponse(-1,'修改失败，稍后再试');
     }
 
-    /**
-     * 添加组织者下的会员用户  @srv队列任务同步数据时时所用
-     * @param Request $request
-     */
-    public function test(Request $request)
-    {
 
-        Log::info('接收到得数据：1111111');
-        return SysApi::apiResponse(0,'会员信息修改1111111');
-    }
 }
