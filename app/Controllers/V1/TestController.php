@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 class TestController extends Controller
 {
     public function test(){
+        dd(11);
         dd(app('request')->all());
         dd(request());
         // signature

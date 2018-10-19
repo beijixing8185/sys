@@ -19,18 +19,18 @@ use Illuminate\Support\Facades\Log;
 class MemberController extends Controller
 {
 
-
     /**
      * 添加组织者下的会员用户  @srv队列任务同步数据时时所用
      * @param Request $request
      */
-    public function addMember(Request $request)
+    public function add(Request $request)
     {
         $param = $request ->all();
         Log::info('接收到得数据：'.json_encode($param));
         $member = Member::add($param);
         Log::info('处理得数据：'.$member);
         if(!$member) return SysApi::apiResponse(-1,'失败，请稍后重新尝试');
+
         return SysApi::apiResponse(0,'会员信息修改成功');
     }
 
