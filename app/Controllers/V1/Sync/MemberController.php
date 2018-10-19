@@ -26,7 +26,7 @@ class MemberController extends Controller
     public function add(Request $request)
     {
         $param = $request ->all();
-        unset($param['/api/member/syncAddMember']);
+        array_pop($param);
         Log::info('接收到得数据：'.json_encode($param));
         $member = Member::add($param);
         Log::info('处理得数据：'.$member);
