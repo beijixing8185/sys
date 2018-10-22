@@ -61,9 +61,7 @@ class OrderController extends Controller
             //此处未使用事务
             $data['plat_order_state'] = $param['plat_order_state'];
             $result = Order::updateOrderState($param['zid'],$param['plat_order_id'],$data);
-            if($param['plat_order_state'] == 2){
-                OrderGoods::updateOrderGoodsState($param['zid'],$param['plat_order_id'],$param['plat_order_state']);
-            }
+
             $msg = '修改订单状态为'.$param['plat_order_state'];
             LogOrderPlat::logOrderPlat($param['plat_order_id'],0,$msg,$param['plat_order_state'],0,'用户',$param['zid']);
 
