@@ -53,7 +53,7 @@ class OrderGoodsController extends Controller
             return SysApi::apiResponse(-1,'请求参数错误，请检查');
         }else {
             $data['plat_order_state'] = $param['plat_order_state'];
-            $orderGoods = OrderGoods::updateOrderGoodsState($param['zid'], $param['plat_order_goods_id'], $param['plat_order_state']);
+            $orderGoods = OrderGoods::orderGoodsUpdate($param['zid'], $param['plat_order_goods_id'], $param['plat_order_state']);
 
             $msg = '修改订单状态为'.$param['plat_order_state'];
             LogOrderPlat::logOrderPlat(0,$param['plat_order_goods_id'],$msg,$param['plat_order_state'],0,'用户',$param['zid']);

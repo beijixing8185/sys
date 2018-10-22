@@ -94,7 +94,7 @@ class OrderGoods extends Model
      */
     public static function orderGoodsUpdate($zid,$order_id,$order_state)
     {
-        return self::whereId($order_id)->where('site_id',$zid)->update(['plat_order_state'=>$order_state]);
+        return self::where('site_order_goods_id',$order_id)->where('site_id',$zid)->update(['plat_order_state'=>$order_state]);
     }
 
     /**
