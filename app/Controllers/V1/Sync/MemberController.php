@@ -42,7 +42,6 @@ class MemberController extends Controller
     {
         $data = [];
         $param = $request ->all();
-        Log::info('接收到得数据：'.json_encode($param));
         $rules = [
             'uid' => ['required','integer'],
             'zid' => ['required','integer']
