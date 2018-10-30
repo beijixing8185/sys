@@ -29,7 +29,6 @@ class OrderController extends Controller
     {
         //添加主订单
         $param = $request ->all();
-        Log::info('得到得数组为：'.json_encode($param));
         $order = Order::addOrder($param['order']);
 
         //添加子订单
