@@ -51,7 +51,7 @@ class OrderController extends Controller
         $param = $request ->all();
         $rules = [
             'plat_order_state' => ['required','integer'],
-            'site_id' => ['required','integer'],
+            'zid' => ['required','integer'],
             'plat_order_id' => ['required','integer']
         ];
         $validator = app('validator')->make($param, $rules);
